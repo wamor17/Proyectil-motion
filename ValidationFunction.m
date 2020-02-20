@@ -23,6 +23,9 @@ function [ vc ] = ValidationFunction( F, o, m, x, handles )
     elseif( o == 90 )
         uiwait(msgbox('EL proyectil puede caerte en la cabeza cuando su angulo sea de 90°.','¡Cuidado!','modal'));
         vc = 0;
+    elseif( o > 90 )
+        uiwait(msgbox('El angulo no puede ser mayor a 90 grados. ','¡Cuidado!','modal'));
+        vc = 0;
     end
     
     if( m == 0 || m < 0 )

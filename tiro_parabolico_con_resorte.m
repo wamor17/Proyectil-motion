@@ -22,7 +22,7 @@ function varargout = tiro_parabolico_con_resorte(varargin)
 
 % Edit the above text to modify the response to help tiro_parabolico_con_resorte
 
-% Last Modified by GUIDE v2.5 19-Feb-2020 14:43:17
+% Last Modified by GUIDE v2.5 20-Feb-2020 15:35:40
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -193,9 +193,16 @@ function btnSimular_Callback(hObject, eventdata, handles)
 % hObject    handle to btnSimular (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-clc
 
-t = 0:0.01:50;
+% Limpiamos valores anteriores
+clc
+set(handles.lblVi, 'String', ' Vi:' );
+set(handles.lblXmax, 'String', ' x_max:' );
+set(handles.lblYmax, 'String', ' y_max:' );
+set(handles.lblTtotal, 'String', ' t_total:' );
+set(handles.lblK, 'String', ' K:' );
+
+t = 0:0.01:60;
 n = str2num( get(handles.txtDistanceDiana, 'String') );
 F = str2num( get(handles.txtFuerza,'String') );
 o = str2num( get(handles.txtAngle, 'String') );
@@ -422,7 +429,7 @@ function btnDefinirBlanco_Callback(hObject, eventdata, handles)
 %Definimos posicion del blanco
 n = str2num( get(handles.txtDistanceDiana, 'String') );
 
-if( n < 0 || n > 10 )
+if( n < 0 || n > 20 )
     uiwait(msgbox('EL blanco no puede estar en una distancia negativa o estar a mas de 10 mestros del origen de donde sale el proyectil. Intente definir un blanco donde 0 < n <= 10.','¡Cuidado!','modal'));
     set(handles.txtDistanceDiana, 'String', num2str(5) );
     n = 5;
@@ -507,3 +514,40 @@ function btnSimular_CreateFcn(hObject, eventdata, handles)
 % hObject    handle to btnSimular (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
+
+
+% --- Executes on button press in btnLeft.
+function btnLeft_Callback(hObject, eventdata, handles)
+% hObject    handle to btnLeft (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+p = get(handles.cannon, 'Position');
+set(handles.cannon, 'Position', [p(1)+0.01, p(2), p(3), p(4)])
+
+
+% --- Executes on button press in btnRight.
+function btnRight_Callback(hObject, eventdata, handles)
+% hObject    handle to btnRight (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+p = get(handles.cannon, 'Position');
+set(handles.cannon, 'Position', [p(1), p(2)+0.01, p(3), p(4)])
+
+
+% --- Executes on button press in btnRotar.
+function btnRotar_Callback(hObject, eventdata, handles)
+% hObject    handle to btnRotar (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% % Leemos la imagen del resorte, la giramos y despues la mostramos
+theta = str2num( get(handles.txtAngle, 'String') );
+img_rotated = rotate_img(0, theta);
+imshow(img_rotated, 'Parent', handles.cannon);
+
+
+% --- Executes during object deletion, before destroying properties.
+function cannon_DeleteFcn(hObject, eventdata, handles)
+% hObject    handle to cannon (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

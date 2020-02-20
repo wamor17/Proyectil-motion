@@ -2,13 +2,12 @@ function [ output_args ] = FunctionGraph(t, n, F, o, m, x, g, handles)
     k = F/x;
 
     % Asignamos valor a la constante k
-    set(handles.txtK, 'String', num2str(round(k, 4)));
+    set(handles.lblK, 'String', [' K: ', num2str(round(k, 4))] );
 
     % Obtenemos la velocidad inicial
-    vi = round( sqrt( k/m )*x, 2 );
-    vi2 = round( (vi*3600)/1000, 2 );
-    set( handles.txtVelocidadInicial, 'String', [num2str(vi), ' ', 'm/s'] );
-    set( handles.txtVi2, 'String', [num2str(vi2), ' ', 'km/h'] );
+    vi = round( sqrt( k/m )*x, 1 );
+    vi2 = round( (vi*3600)/1000, 1 );
+    set( handles.lblVi, 'String', [' Vi: ', num2str(vi), ' ', 'm/s', ', ', num2str(vi2), ' km/h'] );
 
     % Maximun high calculated
     y_max = ( (vi^2)*( (sind(o))^2 ) )/(2*g);
@@ -20,7 +19,6 @@ function [ output_args ] = FunctionGraph(t, n, F, o, m, x, g, handles)
 
     % Total projectil path time calculated
     time_total = round( 2*(( vi*(sind(o)) )/g), 2);
-    set( handles.txtTotalTime, 'String', [num2str(time_total), ' ', 's'] );
 
     r_fx = vi*cosd(o).*t;
     r_fy = vi*sind(o).*t - (0.5)*g*(t).^2;
@@ -40,7 +38,6 @@ function [ output_args ] = FunctionGraph(t, n, F, o, m, x, g, handles)
             set(handles.lblT, 'String', ts );
             
             addpoints(Graph, r_fx(i), r_fy(i));
-            %pause(0.005)
             drawnow
         else
             break;
