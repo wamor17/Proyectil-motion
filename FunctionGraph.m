@@ -26,7 +26,7 @@ function [ output_args ] = FunctionGraph(t, n, F, o, m, x, g, handles)
     axes(handles.graph1)
     R = rand; G = rand; B = rand;
     Graph = animatedline('Color', [R G B], 'LineWidth', 3.5);
-    axis([ 0 n+1.5 0 n-2 ])
+    axis([ 0 10 0 5 ])
 
     for i=1:size(t, 2)
         if( r_fy(i) >= 0 )
