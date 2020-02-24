@@ -1,44 +1,21 @@
 function [ vc, n, F, o ] = ValidationFunction( handles )
 
     vc = 1;
-    vc1 = 1;
-    n = get(handles.txtDistanceDiana, 'String');
+    n = str2num( get(handles.txtDistanceDiana, 'String') );
     F = get(handles.txtFuerza,'String');
     o = get(handles.txtAngle, 'String');
     m = 20;
     x = 20;
-    
-    if( size(strsplit(n, ','), 2) > 1 || size( str2num(n), 2 ) > 1 )
-        uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada.  Por favor, corriga los datos. ','¡Cuidado!','modal'));
-        set(handles.txtDistanceDiana, 'String', num2str(15) );
+
+    if( size(strsplit(F, ','), 2) > 1 || size( str2num(F), 2 ) > 1 || size( str2num(F), 2 ) == 0 )
+        uiwait(msgbox('Escriba unicamente valores numericos en cada recuadro de textox. Por favor, corriga los datos. ','¡Cuidado!','modal'));
         vc = 0;
-    else
-        n = str2num(n);
-
-        if( n < 0 || n >= 20 )
-            n = 5;
-            uiwait(msgbox('El blanco no puede estar en una distancia negativa o estar a mas de 10 mestros del origen de donde sale el proyectil. Intente definir un blanco donde 0 < n <= 10.','¡Cuidado!','modal'));
-            set(handles.txtDistanceDiana, 'String', num2str(n) );
-            vc = 0;
-        else
-           vc = 1; 
-        end
-
-    end
-
-    if( size(strsplit(F, ','), 2) > 1 && size( str2num(F), 2 ) > 1 )
+    elseif( size(strsplit(o, ','), 2) > 1 || size( str2num(o), 2 ) > 1 || size( str2num(o), 2 ) == 0 )
         uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
         vc = 0;
     else
         F = str2num(F);
-        vc = 1;
-    end
-
-    if( size(strsplit(o, ','), 2) > 1 || size( str2num(o), 2 ) > 1 )
-        uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
-        vc = 0;
-    else
-        o = str2num(o);    
+        o = str2num(o);
         vc = 1;
     end
 

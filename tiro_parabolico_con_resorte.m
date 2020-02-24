@@ -61,6 +61,14 @@ guidata(hObject, handles);
 % UIWAIT makes tiro_parabolico_con_resorte wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
 
+% % % --- MOSTRAMOS EL RESORTE Y LA DIANA DE TIRO
+img = imread('images/target.jpg');
+imshow(img, 'Parent', handles.graph2)
+
+theta = str2num( get(handles.txtAngle, 'String') );
+img_rotated = rotate_img(2, theta);
+imshow(img_rotated, 'Parent', handles.cannon);
+
 
 % --- Outputs from this function are returned to the command line.
 function varargout = tiro_parabolico_con_resorte_OutputFcn(hObject, eventdata, handles) 
