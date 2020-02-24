@@ -7,7 +7,7 @@ function [ output_args ] = FunctionGraph(t, n, F, o, g, m, x, handles)
     % Obtenemos la velocidad inicial
     vi = round( sqrt( k/m )*x, 1 );
     vi2 = round( (vi*3600)/1000, 1 );
-    set( handles.lblVi, 'String', [' Velocidad incial:       - ', num2str(vi), ' ', 'm/s o ', num2str(vi2), ' km/h'] );
+    set( handles.lblVi, 'String', [' Velocidad incial:         ', num2str(vi), ' ', 'm/s o ', num2str(vi2), ' km/h'] );
 
     % Maximun high calculated
     y_max = ( (vi^2)*( (sind(o))^2 ) )/(2*g);
@@ -65,8 +65,8 @@ function [ output_args ] = FunctionGraph(t, n, F, o, g, m, x, handles)
 %     % Tiempo total
 %     set( handles.lblTtotal, 'String', [' Tiempo total: ', num2str(time_total), ' ', 's'] );
         
-    n_lower = n - 0.08;
-    n_higher = n + 0.08;
+%     n_lower = n - 0.1;
+%     n_higher = n + 0.1;
 
     if( x_max >= n_lower && x_max <= n_higher )
 %    if( x_max == n )

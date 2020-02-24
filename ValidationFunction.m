@@ -1,12 +1,12 @@
-function [ vc, n, F, o, m, x ] = ValidationFunction( handles )
+function [ vc, n, F, o ] = ValidationFunction( handles )
 
     vc = 1;
     vc1 = 1;
     n = get(handles.txtDistanceDiana, 'String');
     F = get(handles.txtFuerza,'String');
     o = get(handles.txtAngle, 'String');
-    m = get(handles.txtMasa, 'String');
-    x = get(handles.txtDResorte, 'String');
+    m = 20;
+    x = 20;
     
     if( size(strsplit(n, ','), 2) > 1 || size( str2num(n), 2 ) > 1 )
         uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada.  Por favor, corriga los datos. ','¡Cuidado!','modal'));
@@ -42,21 +42,21 @@ function [ vc, n, F, o, m, x ] = ValidationFunction( handles )
         vc = 1;
     end
 
-    if( size(strsplit(m, ','), 2) > 1 || size( str2num(m), 2 ) > 1 )
-        uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
-        vc = 0;
-    else
-        m = str2num(m);
-        vc = 1;
-    end
+%     if( size(strsplit(m, ','), 2) > 1 || size( str2num(m), 2 ) > 1 )
+%         uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
+%         vc = 0;
+%     else
+%         m = str2num(m);
+%         vc = 1;
+%     end
 
-    if( size(strsplit(x, ','), 2) > 1 || size( str2num(x), 2 ) > 1 )
-        uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
-        vc = 0;
-    else
-        x = str2num(x);
-        vc = 1;
-    end
+%     if( size(strsplit(x, ','), 2) > 1 || size( str2num(x), 2 ) > 1 )
+%         uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada. Por favor, corriga los datos. ','¡Cuidado!','modal'));
+%         vc = 0;
+%     else
+%         x = str2num(x);
+%         vc = 1;
+%     end
 
     
     if( vc == 1 )
@@ -86,21 +86,21 @@ function [ vc, n, F, o, m, x ] = ValidationFunction( handles )
             vc = 0;
         end
 
-        if( m == 0 || m < 0 )
-            uiwait(msgbox('La masa no puede ser negativa; Fisicamente no existe un cuerpo que tenga una masa negativa. Si la masa es cero, la velocidad inicial sera infinita, y fisicamente no tiene sentido.','¡Cuidado!','modal'));
-            set(handles.txtMasa, 'String', num2str(20) );
-            vc = 0;
-        end
-
-        if( x < 0 )
-            uiwait(msgbox('La distancia de compresion del resorte no puede ser negativa, ya que se estaria estirando el resorte y el proyectil seria disparado en sentido contrario. ','¡Cuidado!','modal'));
-            set(handles.txtDResorte, 'String', num2str(20) );
-            vc = 0;
-        elseif( x == 0 )
-            uiwait(msgbox('Si la compresion del resorte es igual a 0, no habra impulso para que el proyectil se dispare.','¡Cuidado!','modal'));
-            set(handles.txtDResorte, 'String', num2str(20) );
-            vc = 0;
-        end
+%         if( m == 0 || m < 0 )
+%             uiwait(msgbox('La masa no puede ser negativa; Fisicamente no existe un cuerpo que tenga una masa negativa. Si la masa es cero, la velocidad inicial sera infinita, y fisicamente no tiene sentido.','¡Cuidado!','modal'));
+%             set(handles.txtMasa, 'String', num2str(20) );
+%             vc = 0;
+%         end
+% 
+%         if( x < 0 )
+%             uiwait(msgbox('La distancia de compresion del resorte no puede ser negativa, ya que se estaria estirando el resorte y el proyectil seria disparado en sentido contrario. ','¡Cuidado!','modal'));
+%             set(handles.txtDResorte, 'String', num2str(20) );
+%             vc = 0;
+%         elseif( x == 0 )
+%             uiwait(msgbox('Si la compresion del resorte es igual a 0, no habra impulso para que el proyectil se dispare.','¡Cuidado!','modal'));
+%             set(handles.txtDResorte, 'String', num2str(20) );
+%             vc = 0;
+%         end
     end
 
 

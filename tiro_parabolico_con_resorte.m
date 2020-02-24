@@ -196,17 +196,16 @@ function btnSimular_Callback(hObject, eventdata, handles)
 
 % Limpiamos valores anteriores
 clc
-set(handles.lblVi, 'String', ' Vi:' );
-set(handles.lblXmax, 'String', ' x_max:' );
-set(handles.lblYmax, 'String', ' y_max:' );
-set(handles.lblTtotal, 'String', ' t_total:' );
-set(handles.lblK, 'String', ' K:' );
-
-t = 0:0.01:60;
+set(handles.lblXmax, 'String', ' Distancia maxima:' );
+set(handles.lblYmax, 'String', ' Altura maxima: ' );
+set(handles.lblTtotal, 'String', ' Tiempo total:' );
+t = linspace(0, 50, 5000);%0:0.01:60;
 g = 9.8;
+m = 20;
+x = 20;
 
 % Validacion de los valores de entrada
-[VerifyContinue, n, F, o, m, x] = ValidationFunction( handles );
+[VerifyContinue, n, F, o] = ValidationFunction( handles );
 
 if( VerifyContinue == 1 )
     for i=2:5
@@ -221,7 +220,7 @@ if( VerifyContinue == 1 )
         pause(0.0001)
     end
 
-    FunctionGraph(t, n, F, o, m, x, g, handles);
+    FunctionGraph(t, n, F, o, g, m, x, handles);
 else
     uiwait(msgbox('Siga las indicaciones para poder continuar.','¡Atencion!','modal'));
 end
@@ -420,27 +419,19 @@ function btnDefinirBlanco_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %Definimos posicion del blanco
-n = get(handles.txtDistanceDiana, 'String');
+% n = str2num(n);
+% m = 3;
 
-if( size(strsplit(n, ','), 2) > 1 || size( str2num(n), 1 ) == 0 )
-    uiwait(msgbox('Escriba unicamente valores numericos en cada variable de entrada.','¡Cuidado!','modal'));
-    set(handles.txtDistanceDiana, 'String', num2str(15) );
-else
-    n = str2num(n);
-    m = 3;
-    
-    img = imread('images/target.jpg');
-    [rows1, cols1, c1] = size(img);
-    img = img/255;
+% [rows1, cols1, c1] = size(img);
+% img = img/255;
+% 
+% blank = zeros(400, 8000, 3);
+% nb = blank;
+% nb( 1:end, ((m*n-1)*cols1+1):m*n*cols1, 1:end ) = img;
 
-    blank = zeros(400, 8000, 3);
-    nb = blank;
-
-    nb( 1:end, ((m*n-1)*cols1+1):m*n*cols1, 1:end ) = img;
-
-    % nb( 1:end, ( (n-1)*cols1+1 ):end, 1:end ) = img;
-    imshow(nb, 'Parent', handles.graph2)
-end
+% nb( 1:end, ( (n-1)*cols1+1 ):end, 1:end ) = img;
+img = imread('images/target.jpg');
+imshow(img, 'Parent', handles.graph2)
 
 % -----------------------------------------------------------------
 % % Leemos la imagen del resorte, la giramos y despues la mostramos
@@ -555,21 +546,21 @@ function slider2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-n = round( get(hObject, 'Value') );
-set(handles.txtDistanceDiana, 'String', n+1);
-m = 3;
-
-img = imread('images/target.jpg');
-[rows1, cols1, c1] = size(img);
-img = img/255;
-
-blank = zeros(400, 8000, 3);
-nb = blank;
-
-nb( 1:end, ((m*n-1)*cols1+1):m*n*cols1, 1:end ) = img;
-
-% nb( 1:end, ( (n-1)*cols1+1 ):end, 1:end ) = img;
-imshow(nb, 'Parent', handles.graph2)
+% n = round( get(hObject, 'Value') );
+% set(handles.txtDistanceDiana, 'String', n+1);
+% m = 3;
+% 
+% img = imread('images/target.jpg');
+% [rows1, cols1, c1] = size(img);
+% img = img/255;
+% 
+% blank = zeros(400, 8000, 3);
+% nb = blank;
+% 
+% nb( 1:end, ((m*n-1)*cols1+1):m*n*cols1, 1:end ) = img;
+% 
+% % nb( 1:end, ( (n-1)*cols1+1 ):end, 1:end ) = img;
+% imshow(nb, 'Parent', handles.graph2)
 
 
 % --- Executes during object creation, after setting all properties.
