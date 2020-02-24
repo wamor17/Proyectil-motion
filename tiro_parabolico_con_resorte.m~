@@ -555,22 +555,9 @@ function slider2_Callback(hObject, eventdata, handles)
 
 % Hints: get(hObject,'Value') returns position of slider
 %        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
-n = round( get(hObject, 'Value') );
-set(handles.txtDistanceDiana, 'String', n+1);
-m = 3;
-
-img = imread('images/target.jpg');
-[rows1, cols1, c1] = size(img);
-img = img/255;
-
-blank = zeros(400, 8000, 3);
-nb = blank;
-
-nb( 1:end, ((m*n-1)*cols1+1):m*n*cols1, 1:end ) = img;
-
-% nb( 1:end, ( (n-1)*cols1+1 ):end, 1:end ) = img;
-imshow(nb, 'Parent', handles.graph2)
-
+value = get(hObject, 'Value');
+round(value)
+set(handles.txtDistanceDiana, 'String', value)
 
 % --- Executes during object creation, after setting all properties.
 function slider2_CreateFcn(hObject, eventdata, handles)
